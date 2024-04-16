@@ -45,5 +45,9 @@ public class ListeComptes implements Serializable {
         Util.addFlashInfoMessage("suppression effectué");
         return "listeComptes";
     }
+    
+     public String toModif(Long id){
+        return "formUpdate?id="+id.toString()+"&amp;faces-redirect=true";
+    }
 
 }
