@@ -39,6 +39,12 @@
                                     <f:convertNumber pattern="###,###,##0"/>
                                 </h:outputText>
                             </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="action"/>
+                                </f:facet>
+                                <h:commandLink action="#{listeComptes.supprimerCompte(item)}">suppprimer</h:commandLink>
+                            </p:column>
                         </p:dataTable>
                     </p:panelGrid>
 

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import mg.harena.tpbanque.entity.CompteBancaire;
 import mg.harena.tpbanque.service.GestionnaireCompte;
+import mg.harena.tpbanque.util.Util;
 
 /**
  *
@@ -36,6 +37,13 @@ public class ListeComptes implements Serializable {
             listeCompte = gc.getAllComptes();
         }
         return listeCompte;
+    }
+    
+    public String supprimerCompte(CompteBancaire cb){
+        //CompteBancaire cb = gc.getCompteById(id);
+        gc.supprimer(cb);
+        Util.addFlashInfoMessage("suppression effectué");
+        return "listeComptes";
     }
 
 }
