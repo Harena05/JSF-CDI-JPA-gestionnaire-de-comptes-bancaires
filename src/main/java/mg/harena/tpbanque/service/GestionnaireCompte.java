@@ -81,4 +81,16 @@ public class GestionnaireCompte {
         CompteBancaire b = new CompteBancaire(nom,solde);
         em.persist(b);
     }
+    
+    @Transactional
+    public void deposer(CompteBancaire compteBancaire, int montant) {
+        compteBancaire.deposer(montant);
+        em.merge(compteBancaire);
+    }
+
+    @Transactional
+    public void retirer(CompteBancaire compteBancaire, int montant) {
+        compteBancaire.retirer(montant);
+       em.merge(compteBancaire);
+    }
 }
