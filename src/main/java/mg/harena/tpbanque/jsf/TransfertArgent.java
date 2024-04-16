@@ -9,6 +9,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import java.io.Serializable;
 import mg.harena.tpbanque.service.GestionnaireCompte;
+import mg.harena.tpbanque.util.Util;
 
 /**
  *
@@ -21,6 +22,7 @@ public class TransfertArgent implements Serializable {
     private long idReceveur;
     private long idEnvoyeur;
     private int somme;
+    private String error = "";
 
     @Inject
     GestionnaireCompte gc;
@@ -49,6 +51,10 @@ public class TransfertArgent implements Serializable {
         this.somme = somme;
     }
 
+    public String getError() {
+        return error;
+    }
+
     /**
      * Creates a new instance of TransfertArgent
      */
@@ -56,8 +62,27 @@ public class TransfertArgent implements Serializable {
     }
 
     public String transfer() {
+        String erreur = "";
+        if (gc.getCompteById(idReceveur) == null) {
+            erreur += "pas de compte avec l'id du receveur";
+        }
+        if (gc.getCompteById(idEnvoyeur) == null) {
+            erreur += ", pas de compte avec l'id de l'envoyeur";
+        }
+        if (gc.getCompteById(idEnvoyeur) != null && gc.getCompteById(idEnvoyeur).getSolde() < somme) {
+            erreur += ", solde de l'envoyeur insufisant";
+        }
+        if (gc.getCompteById(idEnvoyeur) != null && gc.getCompteById(idReceveur) != null && idEnvoyeur == idReceveur) {
+            erreur += ", l'envoyeur et le receveur doivent être different";
+        }
+        if (!"".equals(erreur)) {
+            error = erreur;
+            return null;
+        }
+
         gc.transfert(idReceveur, idEnvoyeur, somme);
-        return "listeComptes";
+        Util.addFlashInfoMessage("Transfert correctement effectué");
+        return "listeComptes?faces-redirect=true";
     }
 
 }
