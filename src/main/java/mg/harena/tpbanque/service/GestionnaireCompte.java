@@ -67,12 +67,18 @@ public class GestionnaireCompte {
     public void transfert(long idReceveur, long idEnvoyeur, int somme) {
         CompteBancaire envoyeur = this.getCompteById(idEnvoyeur);
         CompteBancaire receveur = this.getCompteById(idReceveur);
-
-        envoyeur = em.merge(envoyeur);
-        receveur = em.merge(receveur);
+        
+        //envoyeur = em.merge(envoyeur);
+        //receveur = em.merge(receveur);
 
         envoyeur.setSolde(envoyeur.getSolde() - somme);
         receveur.setSolde(receveur.getSolde() + somme);
+        
+        envoyeur.retirer(somme);
+        receveur.deposer(somme);
+
+        envoyeur = em.merge(envoyeur);
+        receveur = em.merge(receveur);
 
     }
 

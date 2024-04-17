@@ -26,28 +26,30 @@
                     de #{mouvementCompte.compte.nom}</h1>
 
                 <h:form>
-                    <h:panelGrid columns="3">
-                        Nom du titulaire :
-                        <h:outputText value="#{mouvementCompte.compte.nom}"/>
-                        <h:panelGroup/>
-                        Type du mouvement :
-                        <h:selectOneRadio id="typeMouvement"
-                                          value="#{mouvementCompte.typeMouvement}"
-                                          required="true"
-                                          layout="pageDirection">
-                            <f:selectItem itemValue="ajout" itemLabel="Ajout"/>
-                            <f:selectItem itemValue="retrait" itemLabel="Retrait"/>
-                        </h:selectOneRadio>
-                        <h:message for="typeMouvement"/>
+                    <h:panelGrid columnClasses="2">
+                        <h:panelGrid columns="3">
+                            Nom du titulaire :
+                            <h:outputText value="#{mouvementCompte.compte.nom}"/>
+                            <h:panelGroup/>
+                            Type du mouvement :
+                            <h:selectOneRadio id="typeMouvement"
+                                              value="#{mouvementCompte.typeMouvement}"
+                                              required="true"
+                                              layout="pageDirection">
+                                <f:selectItem itemValue="ajout" itemLabel="Ajout"/>
+                                <f:selectItem itemValue="retrait" itemLabel="Retrait"/>
+                            </h:selectOneRadio>
+                            <h:message for="typeMouvement"/>
 
-                        Montant du mouvement :
-                        <h:inputText id="montant" value="#{mouvementCompte.montant}"
-                                     required="true"
-                                     validator="#{mouvementCompte.validateSolde}"/>
-                        <h:message for="montant"/>
+                            Montant du mouvement :
+                            <h:inputText id="montant" value="#{mouvementCompte.montant}"
+                                         required="true"
+                                         validator="#{mouvementCompte.validateSolde}"/>
+                            <h:message for="montant"/>
+                        </h:panelGrid>
+                        <h:commandButton action="#{mouvementCompte.enregistrerMouvement()}"
+                                         value="Enregistrer le mouvement"/>
                     </h:panelGrid>
-                    <h:commandButton action="#{mouvementCompte.enregistrerMouvement()}"
-                                     value="Enregistrer le mouvement"/>
                 </h:form>
             </ui:define>
 

@@ -23,18 +23,21 @@
 
             <ui:define name="content">
                 <h:form>
-                    <h:panelGrid columns="3">
-                        Nom :
-                        <h:inputText value="#{modifierCompte.nom}"  required="true"/>
-                        <h:panelGroup/>
+                    <h:panelGrid columnClasses="2">
 
-                        Soldes:
-                        <h:inputText id="montant" value="#{modifierCompte.solde}"
-                                     required="true"/>
-                        <h:message for="montant"/>
+                        <h:panelGrid columns="3">
+                            Nom :
+                            <h:inputText value="#{modifierCompte.nom}"  required="true"/>
+                            <h:panelGroup/>
+
+                            Soldes:
+                            <h:inputText id="montant" value="#{modifierCompte.solde}"
+                                         required="true"/>
+                            <h:message for="montant"/>
+                        </h:panelGrid>
+                        <h:commandButton action="#{modifierCompte.modif()}"
+                                         value="Enregistrer les modifications"/>
                     </h:panelGrid>
-                    <h:commandButton action="#{modifierCompte.modif()}"
-                                     value="Enregistrer les modifications"/>
                 </h:form>
                 <h:outputText value="#{modifierCompte.error}" />
                 <h:messages/>

@@ -14,6 +14,7 @@
 
             <ui:define name="content">
                 <h:form>
+                    <h:panelGrid columnClasses="2">
                     <h:outputLabel value="Entrez un nom" for="nom"/>
                     <h:inputText id="idEnvoyeur"  required="true" value="#{ajoutNoveauCompte.nom}"/>
 
@@ -21,7 +22,9 @@
                     <h:inputText id="idReceveur"  required="true" value="#{ajoutNoveauCompte.solde}"/>
 
                     <h:commandButton value="Valider" action="#{ajoutNoveauCompte.ajoutCompte()}"/>
+                    </h:panelGrid>
                 </h:form>
+                <h:messages/>
             </ui:define>
 
         </ui:composition>
