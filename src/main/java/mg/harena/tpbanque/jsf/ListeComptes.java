@@ -38,16 +38,16 @@ public class ListeComptes implements Serializable {
         }
         return listeCompte;
     }
-    
-    public String supprimerCompte(CompteBancaire cb){
+
+    public String supprimerCompte(CompteBancaire cb) {
         //CompteBancaire cb = gc.getCompteById(id);
         gc.supprimer(cb);
         Util.addFlashInfoMessage("suppression effectué");
         return "listeComptes";
     }
-    
-     public String toModif(Long id){
-        return "formUpdate?id="+id.toString()+"&amp;faces-redirect=true";
+
+    public String toModif(Long id) {
+        return "formUpdate?id=" + id.toString() + "&amp;faces-redirect=true";
     }
 
 }

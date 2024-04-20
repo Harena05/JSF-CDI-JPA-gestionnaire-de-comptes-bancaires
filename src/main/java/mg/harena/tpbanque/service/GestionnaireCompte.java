@@ -13,6 +13,7 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import mg.harena.tpbanque.entity.CompteBancaire;
+import mg.harena.tpbanque.entity.OperationBancaire;
 
 /**
  *
@@ -55,6 +56,10 @@ public class GestionnaireCompte {
         return query.getResultList();
     }
 
+    public List<OperationBancaire> getAllOperation(long id) {
+        return em.find(CompteBancaire.class, id).getOperations();
+    }
+
     public int compte() {
         return getAllComptes().size();
     }
@@ -67,13 +72,10 @@ public class GestionnaireCompte {
     public void transfert(long idReceveur, long idEnvoyeur, int somme) {
         CompteBancaire envoyeur = this.getCompteById(idEnvoyeur);
         CompteBancaire receveur = this.getCompteById(idReceveur);
-        
-        //envoyeur = em.merge(envoyeur);
-        //receveur = em.merge(receveur);
 
         envoyeur.setSolde(envoyeur.getSolde() - somme);
         receveur.setSolde(receveur.getSolde() + somme);
-        
+
         envoyeur.retirer(somme);
         receveur.deposer(somme);
 

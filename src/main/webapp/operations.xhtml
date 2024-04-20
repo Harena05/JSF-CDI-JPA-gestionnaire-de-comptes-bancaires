@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html">
+    <body>
+        <ui:composition template="./WEB-INF/template/template_defaut.xhtml">
+            <ui:define name="top">
+                Opérations
+            </ui:define>
+            <ui:define name="metadata">
+                <f:metadata>  
+                    <f:viewParam name="id" value="#{mouvementCompte.id}"  
+                                 required="true"/>  
+                    <f:viewAction action="#{mouvementCompte.loadCompte()}"/>  
+                </f:metadata>
+            </ui:define>
+            <ui:define name="content">
+                <h1>Historique des opérations sur le compte de #{mouvementCompte.compte.nom}</h1>
+                <p:panelGrid  id="forautowidth" columns="1">
+                    <p:dataTable value="#{operations.getAllOperation(mouvementCompte.compte.id)}" var="item"
+                                 tableStyle="width:auto" >
+                        <p:column width="40">
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:link outcome="mouvementCompte?id=#{item.id}" 
+                                    value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputText value="Date opération"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateOperation}"/>
+                        </p:column>
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputText value="Montant"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montant}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panelGrid>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
