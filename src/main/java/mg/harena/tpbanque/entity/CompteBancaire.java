@@ -14,6 +14,7 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 @Entity
 @Table(name = "CompteBancaire")
 @NamedQueries({
-    @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT c FROM CompteBancaire c"),})
+    @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT c FROM CompteBancaire c join fetch OperationBancaire ob"),})
 public class CompteBancaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,6 +34,9 @@ public class CompteBancaire implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Version
+    private int version;
+    
     private String nom;
 
     private int solde;
@@ -67,7 +71,7 @@ public class CompteBancaire implements Serializable {
     public CompteBancaire() {
 
     }
-    
+
     public CompteBancaire(String nom, int solde) {
         this.nom = nom;
         this.solde = solde;
@@ -81,7 +85,7 @@ public class CompteBancaire implements Serializable {
 
     public void retirer(int montant) {
         if (montant < solde) {
-            operations.add(new OperationBancaire("Débit", montant*(-1)));
+            operations.add(new OperationBancaire("Débit", montant * (-1)));
             solde -= montant;
         } else {
             solde = 0;

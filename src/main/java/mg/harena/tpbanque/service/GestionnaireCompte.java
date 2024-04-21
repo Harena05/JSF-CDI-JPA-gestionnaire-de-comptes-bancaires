@@ -55,7 +55,6 @@ public class GestionnaireCompte {
         Query query = em.createNamedQuery("CompteBancaire.findAll");
         return query.getResultList();
     }
-
     public List<OperationBancaire> getAllOperation(long id) {
         return em.find(CompteBancaire.class, id).getOperations();
     }
@@ -95,6 +94,7 @@ public class GestionnaireCompte {
         compteBancaire.deposer(montant);
         em.merge(compteBancaire);
     }
+    
 
     @Transactional
     public void retirer(CompteBancaire compteBancaire, int montant) {
